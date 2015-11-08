@@ -1,37 +1,15 @@
 'use strict';
 
-var gulpif = require('gulp-if');
-var stylus = require('gulp-stylus');
-var stylint = require('gulp-stylint');
 var argv = require('yargs').argv;
-var plumber = require('gulp-plumber');
-var sourcemaps = require('gulp-sourcemaps');
-var uglify = require('gulp-uglify');
-var karma = require('karma').Server;
-var through2 = require('through2');
-var concat = require('gulp-concat');
-var jade = require('gulp-jade');
-var templateCache = require('gulp-angular-templatecache');
-var autoprefixer = require('gulp-autoprefixer');
-var source = require('vinyl-source-stream');
-var path = require('path');
-var _ = require('lodash');
-var gutil = require('gulp-util');
-var gStreamify = require('gulp-streamify');
 var isProduction = argv.production;
-var notify = require('gulp-notify');
-var webpack = require('webpack');
-var configToWebpack = require('../lib/config-to-webpack');
-var notifier = require('node-notifier');
-var WebpackCompiler = require('../lib/webpack-compiler');
-var icon = path.join(__dirname, "boar.png");
-var eslint = require('gulp-eslint');
-var connect = require('gulp-connect');
 
 module.exports = function (gulp, config) {
 
   var tasks = {
     copyStatic: function() {
+      var gulpif = require('gulp-if');
+      var _ = require('lodash');
+
       var staticConfig = config.client.static;
       if (!_.isArray(staticConfig)) {
         staticConfig = [staticConfig];
@@ -43,6 +21,11 @@ module.exports = function (gulp, config) {
         switch (config.preProcess) {
           case 'browserify':
             var browserify = require('browserify');
+            var uglify = require('gulp-uglify');
+            var through2 = require('through2');
+            var source = require('vinyl-source-stream');
+            var path = require('path');
+            var gStreamify = require('gulp-streamify');
 
             task
               .pipe(through2.obj(function(file, enc, next) {
@@ -64,6 +47,13 @@ module.exports = function (gulp, config) {
     },
 
     buildStylesheets: function (runContinuously) {
+      var gulpif = require('gulp-if');
+      var stylus = require('gulp-stylus');
+      var plumber = require('gulp-plumber');
+      var sourcemaps = require('gulp-sourcemaps');
+      var autoprefixer = require('gulp-autoprefixer');
+      var notify = require('gulp-notify');
+
       return gulp.src(config.client.stylesheets.buildPattern)
         .pipe(gulpif(runContinuously, plumber({
           errorHandler: notify.onError({
@@ -100,6 +90,9 @@ module.exports = function (gulp, config) {
     },
 
     buildViews: function () {
+      var jade = require('gulp-jade');
+      var templateCache = require('gulp-angular-templatecache');
+
       return gulp.src(config.client.app.viewPattern)
         .pipe(jade({
           pretty: true
@@ -115,6 +108,13 @@ module.exports = function (gulp, config) {
     },
 
     buildScripts: function (cb, runContinuously) {
+      var path = require('path');
+      var gutil = require('gulp-util');
+      var notify = require('gulp-notify');
+      var notifier = require('node-notifier');
+      var configToWebpack = require('../lib/config-to-webpack');
+      var WebpackCompiler = require('../lib/webpack-compiler');
+
       var compiler = new WebpackCompiler(configToWebpack(config));
       if (isProduction) compiler.addProductionPlugins();
       compiler.on('success', function() {
@@ -125,7 +125,7 @@ module.exports = function (gulp, config) {
         notifier.notify({
           'title': errors.length + ' Boar tasks error',
           'message': errors[0].toString().substr(-75),
-          'icon': icon,
+          'icon': path.join(__dirname, "boar.png"),
           'time': 8000
         });
         errors.forEach(function(error) {
@@ -143,6 +143,10 @@ module.exports = function (gulp, config) {
     },
 
     buildVendors: function () {
+      var plumber = require('gulp-plumber');
+      var through2 = require('through2');
+      var browserify = require('browserify');
+
       return gulp.src([config.client.app.vendorPattern])
         .pipe(plumber())
         .pipe(through2.obj(function (file, enc, next) {
@@ -157,6 +161,12 @@ module.exports = function (gulp, config) {
     },
 
     concatVendors: function () {
+      var gulpif = require('gulp-if');
+      var plumber = require('gulp-plumber');
+      var uglify = require('gulp-uglify');
+      var concat = require('gulp-concat');
+      var gStreamify = require('gulp-streamify');
+
       return gulp.src(config.client.vendors)
         .pipe(plumber())
         .pipe(concat('vendors.js'))
@@ -165,7 +175,9 @@ module.exports = function (gulp, config) {
     },
 
     test: function (done) {
-      var server = new karma({
+      var KarmaServer = require('karma').Server;
+
+      var server = new KarmaServer({
         configFile: config.client.testConfigPath,
         singleRun: true
       }, done);
@@ -173,6 +185,8 @@ module.exports = function (gulp, config) {
     },
     
     codeStyle: function() {
+      var eslint = require('gulp-eslint');
+
       return gulp.src(config.client.app.codeStylePattern)
         .pipe(eslint({
           useEslintrc: true
@@ -181,17 +195,22 @@ module.exports = function (gulp, config) {
     },
 
     stylesheetCodeStyle: function() {
+      var stylint = require('gulp-stylint');
       return gulp.src(config.client.stylesheets.codeStyle.pattern)
         .pipe(stylint(config.client.stylesheets.codeStyle.config));
     },
 
     staticServer: function() {
+      var connect = require('gulp-connect');
+
       connect.server({
         root: [config.build.distPath, './client']
       });
     },
 
     reloadStaticServer: function() {
+      var connect = require('gulp-connect');
+
       return connect.reload();
     }
   };
