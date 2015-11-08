@@ -142,24 +142,6 @@ module.exports = function (gulp, config) {
       return tasks.buildScripts(cb, true);
     },
 
-    buildVendors: function () {
-      var plumber = require('gulp-plumber');
-      var through2 = require('through2');
-      var browserify = require('browserify');
-
-      return gulp.src([config.client.app.vendorPattern])
-        .pipe(plumber())
-        .pipe(through2.obj(function (file, enc, next) {
-          browserify(file.path)
-            .transform('browserify-shim')
-            .bundle(function (err, res) {
-              file.contents = res;
-              next(null, file);
-            });
-        }))
-        .pipe(gulp.dest(config.client.app.target));
-    },
-
     concatVendors: function () {
       var gulpif = require('gulp-if');
       var plumber = require('gulp-plumber');
