@@ -23,7 +23,6 @@ var notify = require('gulp-notify');
 var webpack = require('webpack');
 var configToWebpack = require('../lib/config-to-webpack');
 var notifier = require('node-notifier');
-var browserify = require('browserify');
 var WebpackCompiler = require('../lib/webpack-compiler');
 var icon = path.join(__dirname, "boar.png");
 var eslint = require('gulp-eslint');
@@ -43,6 +42,8 @@ module.exports = function (gulp, config) {
 
         switch (config.preProcess) {
           case 'browserify':
+            var browserify = require('browserify');
+
             task
               .pipe(through2.obj(function(file, enc, next) {
                 browserify(file.path)
