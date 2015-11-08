@@ -1,20 +1,22 @@
 'use strict';
 
-var request = require('superagent');
-var Q = require('q');
-var Revision = require('../lib/revision');
-
 module.exports = function(gulp, config) {
   return {
     save: function(revision) {
+      var Revision = require('../lib/revision');
+
       if (!revision) {
         revision = Revision.get(config.revision.type);
       }
+
+      var Q = require('q');
 
       var deferred = Q.defer();
       if (!config.redirector.url) {
         return deferred.resolve();
       }
+
+      var request = require('superagent');
 
       request
         .post(config.redirector.url + '/api/route')
