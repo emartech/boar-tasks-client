@@ -125,6 +125,12 @@ module.exports = function (gulp, config) {
       if (isProduction) compiler.addProductionPlugins();
       compiler.on('success', function() {
         gutil.log("webpack:build");
+        notifier.notify({
+          title: 'Boar tasks',
+          message: 'Scripts regenerated',
+          icon: path.join(__dirname, "boar.png"),
+          timeout: 2000
+        });
         if (!runContinuously) cb();
       });
       compiler.on('error', function(errors) {
