@@ -1,16 +1,12 @@
 'use strict';
 
-var awsPublish = require('gulp-awspublish');
-var rename = require('gulp-rename');
-var parallelize = require('concurrent-transform');
-var argv = require('yargs').argv;
-var clone = require('gulp-clone');
-var es = require('event-stream');
-var Revision = require('../lib/revision');
-
 module.exports = function(gulp, config) {
   return {
     publish: function(revision) {
+      var Revision = require('../lib/revision');
+      var argv = require('yargs').argv;
+      var awsPublish = require('gulp-awspublish');
+
       if (!revision) {
         revision = Revision.get(config.revision.type);
       }
@@ -22,6 +18,8 @@ module.exports = function(gulp, config) {
         logger: argv.production ? null : console
       });
 
+      var rename = require('gulp-rename');
+
       var stream = gulp.src(config.s3.copyPattern)
         .pipe(rename(function(path) {
           path.dirname = '/' + revision + '/' + path.dirname;
@@ -30,11 +28,13 @@ module.exports = function(gulp, config) {
 
       if (config.s3.withGzip) {
         var gzipStream = stream
-          .pipe(clone())
+          .pipe(require('gulp-clone')())
           .pipe(awsPublish.gzip({ ext: '.gz' }));
 
-        stream = es.merge(stream, gzipStream);
+        stream = require('event-stream').merge(stream, gzipStream);
       }
+
+      var parallelize = require('concurrent-transform');
 
       return stream
         .pipe(parallelize(publisher.publish(config.s3.headers), 10))
