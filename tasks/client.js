@@ -52,14 +52,21 @@ module.exports = function (gulp, config) {
       var plumber = require('gulp-plumber');
       var sourcemaps = require('gulp-sourcemaps');
       var autoprefixer = require('gulp-autoprefixer');
-      var notify = require('gulp-notify');
+      var notifier = require('node-notifier');
+      var path = require('path');
 
       return gulp.src(config.client.stylesheets.buildPattern)
         .pipe(gulpif(runContinuously, plumber({
-          errorHandler: notify.onError({
-            title: "<%= error.name %>",
-            message: "<%= error.message %>"
-          })
+          errorHandler: function(error) {
+            notifier.notify({
+              title: error.name,
+              message: error.message,
+              icon: path.join(__dirname, "boar.png"),
+              time: 8000
+            });
+
+            console.log(`[BOAR TASKS ERROR] ${error}\n\n`);
+          }
         })))
         .pipe(gulpif(!isProduction, sourcemaps.init()))
         .pipe(stylus({
@@ -110,7 +117,6 @@ module.exports = function (gulp, config) {
     buildScripts: function (cb, runContinuously) {
       var path = require('path');
       var gutil = require('gulp-util');
-      var notify = require('gulp-notify');
       var notifier = require('node-notifier');
       var configToWebpack = require('../lib/config-to-webpack');
       var WebpackCompiler = require('../lib/webpack-compiler');
@@ -123,10 +129,10 @@ module.exports = function (gulp, config) {
       });
       compiler.on('error', function(errors) {
         notifier.notify({
-          'title': errors.length + ' Boar tasks error',
-          'message': errors[0].toString().substr(-75),
-          'icon': path.join(__dirname, "boar.png"),
-          'time': 8000
+          title: errors.length + ' Boar tasks error',
+          message: errors[0].toString().substr(-75),
+          icon: path.join(__dirname, "boar.png"),
+          time: 8000
         });
         errors.forEach(function(error) {
           console.log(`[BOAR TASKS ERROR] ${error}\n\n`);
