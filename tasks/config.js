@@ -8,7 +8,7 @@ Config.package = {
 
 Config.build = {
   distPath: 'dist/',
-  assetsPath: 'dist/assets/'
+  assetsPath: 'dist/'
 };
 
 Config.staticServer = {
