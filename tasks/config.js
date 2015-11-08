@@ -11,6 +11,10 @@ Config.build = {
   assetsPath: 'dist/assets/'
 };
 
+Config.staticServer = {
+  port: process.env.PORT || 8080
+};
+
 Config.client = {
   testConfigPath: process.cwd() + '/karma.conf.js',
   externalSourceMap: true,

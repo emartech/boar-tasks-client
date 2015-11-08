@@ -186,7 +186,8 @@ module.exports = function (gulp, config) {
       var connect = require('gulp-connect');
 
       connect.server({
-        root: [config.build.distPath, './client']
+        port: config.staticServer.port,
+        root: config.build.distPath
       });
     },
 
