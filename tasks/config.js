@@ -36,7 +36,11 @@ Config.client = {
     target: Config.build.assetsPath + 'scripts/',
     vendors: [],
     codeStylePattern: 'client/app/**/*.js',
-    loaders: []
+    loaders: [
+      { test: /\.js$/, loader: 'babel', exclude: /(node_modules)/ },
+      { test: /\.jade$/, loader: 'jade-loader?self' },
+      { test: /\.json$/, loader: 'json-loader' }
+    ]
   },
   stylesheets: {
     buildPattern: 'client/stylesheets/*.styl',
