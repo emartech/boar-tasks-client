@@ -96,24 +96,6 @@ module.exports = function (gulp, config) {
       return this.buildStylesheets(true);
     },
 
-    buildViews: function () {
-      var jade = require('gulp-jade');
-      var templateCache = require('gulp-angular-templatecache');
-
-      return gulp.src(config.client.app.viewPattern)
-        .pipe(jade({
-          pretty: true
-        }))
-        .pipe(templateCache(
-          'templates.js',
-          {
-            root: 'views/',
-            standalone: true
-          }
-        ))
-        .pipe(gulp.dest(config.client.app.target));
-    },
-
     buildScripts: function (cb, runContinuously) {
       var path = require('path');
       var gutil = require('gulp-util');
