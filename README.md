@@ -77,7 +77,7 @@ Pushes the current codebase to the production branch. Usually it initiate a depl
 #### Save
 Saves the given revision to the Emarsys Redirector service - allowing to control user caches above Amazon S3 and Cloudfront.
 
-*Configuration*
+*Default configuration*
 
 ```javascript
 Config.redirector = {
@@ -102,7 +102,7 @@ gulp.task('publish-redirector', function() { return tasks.redirector.save('myLat
 #### Publish
 It gzip the current codebase and pushes to Amazon S3
 
-*Configuration*
+*Default configuration*
 
 ```javascript
 Config.s3 = {
@@ -121,6 +121,240 @@ Config.s3 = {
 ```javascript
 gulp.task('publish-s3', tasks.s3.publish);
 ```
+
+#### Client tasks
+
+##### Copy static
+Copy static files into the `dist` folder. It can also build them using browserify if it's installed on the project.
+
+*Default configuration*
+
+```javascript
+Config.client = {
+  static: {
+    copyPattern: 'client/static/**/*',
+    target: Config.build.assetsPath
+  }
+}
+```
+
+*Usage*
+
+```javascript
+gulp.task('client-build-static', tasks.client.copyStatic);
+```
+
+
+
+##### Build stylesheets
+Copying and pre-processing stylesheets using stylus.
+
+*Default configuration*
+
+```javascript
+Config.client = {
+  stylesheets: {
+    buildPattern: 'client/stylesheets/*.styl',
+    watchPattern: 'client/stylesheets/**/*',
+    target: Config.build.assetsPath + 'stylesheets/',
+    plugins: [],
+    includeCSS: true,
+    autoprefixer: {
+      browsers: ['ie 9', 'ie 10', 'last 2 versions'],
+      cascade: false
+    }
+  }
+}
+```
+
+*Usage*
+
+```javascript
+gulp.task('client-build-stylesheets', tasks.client.buildStylesheets);
+```
+
+
+
+##### Build stylesheets with denying errors
+It is the same as the `buildStylesheets` task but it is not exiting on stylesheet error. It is suggested to use for smooth development experience. 
+
+*Usage*
+
+```javascript
+gulp.task('client-build-stylesheets-continously', tasks.client.buildStylesheetsDenyErrors);
+```
+
+
+
+##### Build scripts
+It is used to build JavaScript files. It uses Webpack and Babel to compile ES6 code to ES5. Finally it creates a single JavaScript file with all of required files.
+
+*Default configuration*
+
+```javascript
+Config.client = {
+  app: {
+    path: 'client/app/',
+    extensions: ['.js'],
+    buildPattern: 'client/app/!(*.spec).js',
+    testPattern: 'client/app/**/*.spec.js',
+    testModules: [],
+    watchPattern: 'client/app/**/*',
+    viewPattern: 'client/app/views/**/*.jade',
+    vendorPattern: 'client/vendors.js',
+    target: Config.build.assetsPath + 'scripts/',
+    vendors: [],
+    codeStylePattern: 'client/app/**/*.js',
+    loaders: [
+      { test: /\.js$/, loader: 'babel', exclude: /(node_modules)/ },
+      { test: /\.jade$/, loader: 'jade-loader?self' },
+      { test: /\.json$/, loader: 'json-loader' }
+    ]
+  }
+}
+```
+
+*Usage*
+
+```javascript
+gulp.task('client-build-scripts', tasks.client.buildScripts);
+```
+
+
+
+##### Build scripts with denying errors
+It is the same as the `buildScripts` task but it is not exiting on script compilation error. It is suggested to use for smooth development experience. 
+
+*Usage*
+
+```javascript
+gulp.task('client-build-scripts-continously', tasks.client.buildScriptsDenyErrors);
+```
+
+
+
+##### Concatenate vendors
+It concatenates all of the listed vendor files and create a `vendors.js` on the `client.app.target` path from the configuration. 
+
+*Default configuration*
+
+```javascript
+Config.client = {
+  app: {
+    target: Config.build.assetsPath + 'scripts/', 
+  }
+  vendors: []
+}
+```
+
+*Usage*
+
+```javascript
+gulp.task('client-concat-vendors', tasks.client.concatVendors);
+```
+
+
+
+##### Test
+Run all the tests found in the codebase using Karma. 
+
+*Default configuration*
+
+```javascript
+Config.client = {
+  testConfigPath: process.cwd() + '/karma.conf.js'
+}
+```
+
+*Usage*
+
+```javascript
+gulp.task('client-test', tasks.client.test);
+```
+
+
+
+##### Code style
+Check code style using ESLint on the selected JavaScript files.  
+
+*Default configuration*
+
+```javascript
+Config.client = {
+  app: {
+    codeStylePattern: 'client/app/**/*.js'
+  }
+}
+```
+
+*Usage*
+
+```javascript
+gulp.task('client-codestyle', tasks.client.codeStyle);
+```
+
+
+
+##### Stylesheets code style
+Check code style on the selected stylesheets using Stylint.  
+
+*Default configuration*
+
+```javascript
+Config.client = {
+  stylesheets: {
+    codeStyle: {
+      pattern: 'client/stylesheets/**/*.styl',
+      config: {
+        rules: {
+          depthLimit: 3,
+          efficient: false,
+          indentPref: 2,
+          namingConvention: 'lowercase-dash',
+          noImportant: true,
+          quotePref: 'double',
+          sortOrder: 'alphabetical',
+          valid: false
+        }
+      }
+    }
+  }
+}
+```
+
+*Usage*
+
+```javascript
+gulp.task('client-stylesheet-codestyle', tasks.client.stylesheetCodeStyle);
+```
+
+
+
+##### Dummy server to provide assets
+It is for development purposes - serving static asset files.   
+
+*Default configuration*
+
+```javascript
+Config.staticServer = {
+  port: process.env.PORT || 8080
+};
+```
+
+*Usage*
+
+```javascript
+gulp.task('client-static-server', tasks.client.staticServer);
+
+// It can be reloaded with reloadStaticServer
+gulp.task('reload-static-server', tasks.client.reloadStaticServer);
+```
+
+
+
+
+
+
 
 
 
