@@ -97,7 +97,7 @@ gulp.task('publish-redirector', tasks.redirector.save);
 gulp.task('publish-redirector', function() { return tasks.redirector.save('myLatestRevision'); });
 ```
 
-#### S3 tasks
+### S3 tasks
 
 #### Publish
 It gzip the current codebase and pushes to Amazon S3
@@ -122,9 +122,9 @@ Config.s3 = {
 gulp.task('publish-s3', tasks.s3.publish);
 ```
 
-#### Client tasks
+### Client tasks
 
-##### Copy static
+#### Copy static
 Copy static files into the `dist` folder. It can also build them using browserify if it's installed on the project.
 
 *Default configuration*
@@ -146,7 +146,7 @@ gulp.task('client-build-static', tasks.client.copyStatic);
 
 
 
-##### Build stylesheets
+#### Build stylesheets
 Copying and pre-processing stylesheets using stylus.
 
 *Default configuration*
@@ -175,7 +175,7 @@ gulp.task('client-build-stylesheets', tasks.client.buildStylesheets);
 
 
 
-##### Build stylesheets with denying errors
+#### Build stylesheets with denying errors
 It is the same as the `buildStylesheets` task but it is not exiting on stylesheet error. It is suggested to use for smooth development experience. 
 
 *Usage*
@@ -186,7 +186,7 @@ gulp.task('client-build-stylesheets-continously', tasks.client.buildStylesheetsD
 
 
 
-##### Build scripts
+#### Build scripts
 It is used to build JavaScript files. It uses Webpack and Babel to compile ES6 code to ES5. Finally it creates a single JavaScript file with all of required files.
 
 *Default configuration*
@@ -222,7 +222,7 @@ gulp.task('client-build-scripts', tasks.client.buildScripts);
 
 
 
-##### Build scripts with denying errors
+#### Build scripts with denying errors
 It is the same as the `buildScripts` task but it is not exiting on script compilation error. It is suggested to use for smooth development experience. 
 
 *Usage*
@@ -233,7 +233,7 @@ gulp.task('client-build-scripts-continously', tasks.client.buildScriptsDenyError
 
 
 
-##### Concatenate vendors
+#### Concatenate vendors
 It concatenates all of the listed vendor files and create a `vendors.js` on the `client.app.target` path from the configuration. 
 
 *Default configuration*
@@ -255,7 +255,7 @@ gulp.task('client-concat-vendors', tasks.client.concatVendors);
 
 
 
-##### Test
+#### Test
 Run all the tests found in the codebase using Karma. 
 
 *Default configuration*
@@ -274,7 +274,7 @@ gulp.task('client-test', tasks.client.test);
 
 
 
-##### Code style
+#### Code style
 Check code style using ESLint on the selected JavaScript files.  
 
 *Default configuration*
@@ -295,7 +295,7 @@ gulp.task('client-codestyle', tasks.client.codeStyle);
 
 
 
-##### Stylesheets code style
+#### Stylesheets code style
 Check code style on the selected stylesheets using Stylint.  
 
 *Default configuration*
@@ -330,7 +330,7 @@ gulp.task('client-stylesheet-codestyle', tasks.client.stylesheetCodeStyle);
 
 
 
-##### Dummy server to provide assets
+#### Dummy server to provide assets
 It is for development purposes - serving static asset files.   
 
 *Default configuration*
