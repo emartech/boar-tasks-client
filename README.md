@@ -8,7 +8,7 @@ Usually we create a `tasks.config.js` file which is for override the default tas
   
 ### Sample config file
  
-```
+```javascript
 // tasks.config.js
 
 module.exports = {
@@ -30,7 +30,7 @@ module.exports = {
  
 ### Sample gulpfile
 
-```
+```javascript
 // gulpfile.js
 
 let gulp = require('gulp');
@@ -79,7 +79,7 @@ Saves the given revision to the Emarsys Redirector service - allowing to control
 
 *Configuration*
 
-```
+```javascript
 Config.redirector = {
   url: argv.redirectorUrl || process.env.REDIRECTOR_URL,
   name: argv.redirectorName || process.env.REDIRECTOR_NAME,
@@ -90,19 +90,21 @@ Config.redirector = {
 
 *Usage*
 
-``` 
+```javascript
 gulp.task('publish-redirector', tasks.redirector.save);
 
 // Revision can be calculated before the task run
 gulp.task('publish-redirector', function() { return tasks.redirector.save('myLatestRevision'); });
 ```
 
-#### S3
+#### S3 tasks
+
+#### Publish
 It gzip the current codebase and pushes to Amazon S3
 
 *Configuration*
 
-```
+```javascript
 Config.s3 = {
   copyPattern: 'dist/**/*',
   bucket: argv.s3Bucket || process.env.S3_BUCKET,
@@ -116,10 +118,10 @@ Config.s3 = {
 
 *Usage*
 
-``` 
-gulp.task('publish', ['publish-s3', 'publish-redirector']);
+```javascript
 gulp.task('publish-s3', tasks.s3.publish);
 ```
+
 
 
 
