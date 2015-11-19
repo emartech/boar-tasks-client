@@ -349,17 +349,3 @@ gulp.task('client-static-server', tasks.client.staticServer);
 // It can be reloaded with reloadStaticServer
 gulp.task('reload-static-server', tasks.client.reloadStaticServer);
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
