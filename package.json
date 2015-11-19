@@ -1,7 +1,7 @@
 {
   "name": "boar-tasks-client",
   "version": "1.0.0",
-  "description": "",
+  "description": "Boar Tasks for client side",
   "main": "index.js",
   "scripts": {
     "release-patch": "npm version patch -m 'chore(package): update version to %s'",

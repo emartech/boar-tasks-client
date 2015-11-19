@@ -1,13 +1,18 @@
-# Boar Tasks for Client side
+# Boar Tasks for client side
+
+[![npm version](https://badge.fury.io/js/boar-tasks-client.svg)](http://badge.fury.io/js/boar-tasks-client)
+[![Dependency Status](https://david-dm.org/emartech/boar-tasks-client.svg)](https://david-dm.org/emartech/boar-tasks-client)
+[![devDependency Status](https://david-dm.org/emartech/boar-tasks-client/dev-status.svg)](https://david-dm.org/emartech/boar-tasks-client#info=devDependencies)
+
 This repository contains Gulp-based tasks to make client-side applications easier. It can be used with any client side framework which
  supports the CommonJS or AMD pattern.
- 
-These tasks are helpers, you have to define your build tasks in your project's `gulpfile.js`. You can find examples in our existing services or workshop material. 
+
+These tasks are helpers, you have to define your build tasks in your project's `gulpfile.js`. You can find examples in our existing services or workshop material.
 
 Usually we create a `tasks.config.js` file which is for override the default task settings.
-  
+
 ### Sample config file
- 
+
 ```javascript
 // tasks.config.js
 
@@ -19,7 +24,7 @@ module.exports = {
   client: {
     app: {
       buildPattern: 'client/app/app.js',
-      testPattern: 'client/app/**/*.spec.js'      
+      testPattern: 'client/app/**/*.spec.js'
     },
     stylesheets: {
       buildPattern: 'client/stylesheets/app.styl'
@@ -27,7 +32,7 @@ module.exports = {
   }
 };
 ```
- 
+
 ### Sample gulpfile
 
 ```javascript
@@ -71,7 +76,7 @@ It is used to remove files from the build target directory.
 
 #### Deploy
 Pushes the current codebase to the production branch. Usually it initiate a deploying process.
- 
+
 ### Redirector tasks
 
 #### Save
@@ -176,7 +181,7 @@ gulp.task('client-build-stylesheets', tasks.client.buildStylesheets);
 
 
 #### Build stylesheets with denying errors
-It is the same as the `buildStylesheets` task but it is not exiting on stylesheet error. It is suggested to use for smooth development experience. 
+It is the same as the `buildStylesheets` task but it is not exiting on stylesheet error. It is suggested to use for smooth development experience.
 
 *Usage*
 
@@ -223,7 +228,7 @@ gulp.task('client-build-scripts', tasks.client.buildScripts);
 
 
 #### Build scripts with denying errors
-It is the same as the `buildScripts` task but it is not exiting on script compilation error. It is suggested to use for smooth development experience. 
+It is the same as the `buildScripts` task but it is not exiting on script compilation error. It is suggested to use for smooth development experience.
 
 *Usage*
 
@@ -234,14 +239,14 @@ gulp.task('client-build-scripts-continously', tasks.client.buildScriptsDenyError
 
 
 #### Concatenate vendors
-It concatenates all of the listed vendor files and create a `vendors.js` on the `client.app.target` path from the configuration. 
+It concatenates all of the listed vendor files and create a `vendors.js` on the `client.app.target` path from the configuration.
 
 *Default configuration*
 
 ```javascript
 Config.client = {
   app: {
-    target: Config.build.assetsPath + 'scripts/', 
+    target: Config.build.assetsPath + 'scripts/',
   }
   vendors: []
 }
@@ -256,7 +261,7 @@ gulp.task('client-concat-vendors', tasks.client.concatVendors);
 
 
 #### Test
-Run all the tests found in the codebase using Karma. 
+Run all the tests found in the codebase using Karma.
 
 *Default configuration*
 
@@ -275,7 +280,7 @@ gulp.task('client-test', tasks.client.test);
 
 
 #### Code style
-Check code style using ESLint on the selected JavaScript files.  
+Check code style using ESLint on the selected JavaScript files.
 
 *Default configuration*
 
@@ -296,7 +301,7 @@ gulp.task('client-codestyle', tasks.client.codeStyle);
 
 
 #### Stylesheets code style
-Check code style on the selected stylesheets using Stylint.  
+Check code style on the selected stylesheets using Stylint.
 
 *Default configuration*
 
@@ -331,7 +336,7 @@ gulp.task('client-stylesheet-codestyle', tasks.client.stylesheetCodeStyle);
 
 
 #### Dummy server to provide assets
-It is for development purposes - serving static asset files.   
+It is for development purposes - serving static asset files.
 
 *Default configuration*
 
