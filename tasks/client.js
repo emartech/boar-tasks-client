@@ -2,8 +2,11 @@
 
 var argv = require('yargs').argv;
 var isProduction = argv.production;
+var boarTasksCommon = require('boar-tasks-common');
 
 module.exports = function (gulp, config) {
+
+  var lintTasks = boarTasksCommon.lint(gulp);
 
   var tasks = {
     copyStatic: function() {
@@ -159,21 +162,18 @@ module.exports = function (gulp, config) {
       }, done);
       server.start();
     },
-    
-    codeStyle: function() {
-      var eslint = require('gulp-eslint');
 
-      return gulp.src(config.client.app.codeStylePattern)
-        .pipe(eslint({
-          useEslintrc: true
-        }))
-        .pipe(eslint.format());
+    codeStyle: function() {
+      return lintTasks.scripts(config.client.app.codeStylePattern);
     },
 
     stylesheetCodeStyle: function() {
-      var stylint = require('gulp-stylint');
-      return gulp.src(config.client.stylesheets.codeStyle.pattern)
-        .pipe(stylint(config.client.stylesheets.codeStyle.config));
+      return lintTasks.styl(config.client.stylesheets.codeStyle.pattern,
+        config.client.stylesheets.codeStyle.config);
+    },
+
+    jadeCodeStyle: function() {
+      return lintTasks.jade(config.client.app.jadeCodeStylePattern);
     },
 
     staticServer: function() {

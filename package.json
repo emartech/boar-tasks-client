@@ -1,6 +1,6 @@
 {
   "name": "boar-tasks-client",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Boar Tasks for client side",
   "main": "index.js",
   "scripts": {
@@ -18,10 +18,10 @@
     "url": "https://github.com/emartech/boar-tasks-client/issues"
   },
   "dependencies": {
+    "boar-tasks-common": "1.0.0",
     "co-mocha": "1.1.2",
     "concurrent-transform": "1.0.0",
     "deep-extend": "0.4.0",
-    "del": "1.2.0",
     "event-stream": "3.3.1",
     "glob": "5.0.14",
     "gulp-angular-templatecache": "1.7.0",
@@ -31,17 +31,13 @@
     "gulp-clone": "1.0.0",
     "gulp-concat": "2.6.0",
     "gulp-connect": "2.2.0",
-    "gulp-eslint": "^1.0.0",
-    "gulp-exec": "2.1.1",
     "gulp-if": "1.2.5",
     "gulp-install": "0.4.0",
     "gulp-jade": "1.1.0",
     "gulp-plumber": "1.0.1",
-    "gulp-prompt": "0.1.2",
     "gulp-rename": "1.2.2",
     "gulp-sourcemaps": "1.5.2",
     "gulp-streamify": "1.0.0",
-    "gulp-stylint": "2.0.0",
     "gulp-stylus": "2.0.6",
     "gulp-task-listing": "1.0.1",
     "gulp-uglify": "1.2.0",
