@@ -335,6 +335,37 @@ gulp.task('client-stylesheet-codestyle', tasks.client.stylesheetCodeStyle);
 
 
 
+#### Jade code style
+Check code style on the selected jade files using jade-lint.
+
+*Default configuration*
+
+```javascript
+Config.client = {
+  app: {
+    jadeCodeStylePattern: 'client/app/**/*.jade'
+  }
+}
+```
+
+*Code style rules*
+
+Install `jade-lint-config-emarsys` to your project and create a file in your project's root called `.jade-lintrc` with the following content:
+
+```
+{
+  "extends": "emarsys"
+}
+```
+
+*Usage*
+
+```javascript
+gulp.task('client-jade-code-style', tasks.client.jadeCodeStyle);
+```
+
+
+
 #### Dummy server to provide assets
 It is for development purposes - serving static asset files.
 
