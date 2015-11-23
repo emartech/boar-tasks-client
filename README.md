@@ -130,7 +130,7 @@ gulp.task('publish-s3', tasks.s3.publish);
 ### Client tasks
 
 #### Copy static
-Copy static files into the `dist` folder. It can also build them using browserify if it's installed on the project.
+Copy static files into the `dist` folder.
 
 *Default configuration*
 

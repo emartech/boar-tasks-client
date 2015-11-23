@@ -19,31 +19,8 @@ module.exports = function (gulp, config) {
       }
 
       _.each(staticConfig, function(config) {
-        var task = gulp.src(config.copyPattern);
-
-        switch (config.preProcess) {
-          case 'browserify':
-            var browserify = require('browserify');
-            var uglify = require('gulp-uglify');
-            var through2 = require('through2');
-            var source = require('vinyl-source-stream');
-            var path = require('path');
-            var gStreamify = require('gulp-streamify');
-
-            task
-              .pipe(through2.obj(function(file, enc, next) {
-                browserify(file.path)
-                  .bundle()
-                  .pipe(source(path.basename(file.path)))
-                  .pipe(gulpif(isProduction, gStreamify(uglify({mangle: false}))))
-                  .pipe(gulp.dest(config.target));
-              }));
-            break;
-
-          default:
-            task.pipe(gulp.dest(config.target));
-        }
-
+        gulp.src(config.copyPattern)
+          .pipe(gulp.dest(config.target));
       });
 
       return gulp;
