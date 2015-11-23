@@ -1,6 +1,6 @@
 {
   "name": "boar-tasks-client",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Boar Tasks for client side",
   "main": "index.js",
   "scripts": {
