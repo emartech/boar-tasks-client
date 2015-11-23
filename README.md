@@ -260,6 +260,40 @@ gulp.task('client-concat-vendors', tasks.client.concatVendors);
 
 
 
+#### Building an app with multiple entry points
+
+If you have an app with multiple entry points, you can configure `buildPattern` as an array of strings.
+
+```javascript
+Config.client = {
+  app: {
+    buildPattern: [
+      'client/app/!(*.spec).js',
+      'other/dir/!(*.spec).js'
+    ]
+  }
+};
+```
+
+If you have entry points used somewhere else where `vendors.js` is not available - eg. a web worker -, you can configure `buildPattern` to build those entry points with the webpack module loading logic included.
+
+```javascript
+Config.client = {
+  app: {
+    buildPattern: [
+      'client/app/!(*.spec).js',
+      {
+        pattern: 'client/workers/!(*.spec).js',
+        splitVendor: false
+      }
+    ]
+  }
+};
+```
+
+
+
+
 #### Test
 Run all the tests found in the codebase using Karma.
 
