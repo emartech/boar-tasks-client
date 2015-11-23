@@ -18,7 +18,7 @@
     "url": "https://github.com/emartech/boar-tasks-client/issues"
   },
   "dependencies": {
-    "boar-tasks-common": "1.0.0",
+    "boar-tasks-common": "1.1.0",
     "co-mocha": "1.1.2",
     "concurrent-transform": "1.0.0",
     "deep-extend": "0.4.0",
