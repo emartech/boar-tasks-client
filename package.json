@@ -70,7 +70,7 @@
   "devDependencies": {
     "pre-commit": "1.1.2",
     "semantic-release": "4.3.5",
-    "stylint-stylish": "^1.2.0",
+    "stylint-stylish": "1.2.0",
     "validate-commit-message": "3.0.1"
   },
   "homepage": "https://github.com/emartech/boar-tasks-client"
