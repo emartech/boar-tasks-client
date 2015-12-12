@@ -3,7 +3,7 @@
   "description": "Boar Tasks for client side",
   "main": "index.js",
   "scripts": {
-    "validate-commit-msg": "validate-commit-msg"
+    "validate-commit-msg": "validate-commit-msg",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "release": {
