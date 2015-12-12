@@ -64,7 +64,8 @@ Config.client = {
           quotePref: 'double',
           sortOrder: 'alphabetical',
           valid: false
-        }
+        },
+        reporter: 'stylint-stylish'
       }
     }
   },
