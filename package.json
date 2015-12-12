@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/emartech/boar-tasks-client.git"
+    "url": "git+https://github.com/emartech/boar-tasks-client.git"
   },
   "author": "Emarsys",
   "license": "ISC",
