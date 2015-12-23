@@ -24,7 +24,7 @@
     "validate-commit-msg"
   ],
   "dependencies": {
-    "boar-tasks-common": "2.0.0",
+    "boar-tasks-common": "2.1.1",
     "co-mocha": "1.1.2",
     "concurrent-transform": "1.0.0",
     "deep-extend": "0.4.0",
@@ -61,6 +61,7 @@
     "q": "1.4.1",
     "run-sequence": "1.1.2",
     "sinon": "1.17.1",
+    "stylint-stylish": "1.2.0",
     "superagent": "1.3.0",
     "through2": "2.0.0",
     "vinyl-source-stream": "1.1.0",
@@ -69,8 +70,8 @@
   },
   "devDependencies": {
     "pre-commit": "1.1.2",
-    "validate-commit-message": "3.0.1",
-    "semantic-release": "4.3.5"
+    "semantic-release": "4.3.5",
+    "validate-commit-message": "3.0.1"
   },
   "homepage": "https://github.com/emartech/boar-tasks-client"
 }
