@@ -145,12 +145,12 @@ module.exports = function (gulp, config) {
     },
 
     stylesheetCodeStyle: function() {
-      return lintTasks.styl(config.client.stylesheets.codeStyle.pattern,
+      return lintTasks.stylesheets(config.client.stylesheets.codeStyle.pattern,
         config.client.stylesheets.codeStyle.config);
     },
 
-    jadeCodeStyle: function() {
-      return lintTasks.jade(config.client.app.jadeCodeStylePattern);
+    templateCodeStyle: function() {
+      return lintTasks.templates(config.client.app.templateCodeStylePattern);
     },
 
     staticServer: function() {
