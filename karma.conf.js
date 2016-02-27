@@ -12,11 +12,11 @@ module.exports = function(config) {
   };
 
   configHash.preprocessors[config.client.app.testPattern] = ['webpack'];
-  configHash.webpack = {
+  configHash.webpack = _.extend(config.client.app.webpack, {
     module: {
       loaders: config.client.app.loaders
     }
-  };
+  });
 
   configHash.plugins = [
     require('karma-webpack'),
