@@ -10,7 +10,6 @@ module.exports = function (gulp, config) {
 
   var tasks = {
     copyStatic: function() {
-      var gulpif = require('gulp-if');
       var _ = require('lodash');
 
       var staticConfig = config.client.static;
