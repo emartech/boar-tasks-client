@@ -17,6 +17,7 @@ module.exports = function(config) {
       loaders: config.client.app.loaders
     }
   };
+  configHash.webpackMiddleware = { noInfo: true };
 
   configHash.plugins = [
     require('karma-webpack'),
