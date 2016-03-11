@@ -159,6 +159,24 @@ module.exports = function (gulp, config) {
         port: config.staticServer.port,
         root: config.build.distPath
       });
+
+      if (process.env.SERVE_HTTPS === 'true') {
+        var fs = require('fs');
+
+        var httpsOptions = true;
+        if (process.env.HTTPS_KEY && process.env.HTTPS_CERT) {
+          httpsOptions = {
+            key: fs.readFileSync(process.env.HTTPS_KEY),
+            cert: fs.readFileSync(process.env.HTTPS_CERT)
+          }
+        }
+
+        connect.server({
+          port: config.staticServer.port + 10000,
+          root: config.build.distPath,
+          https: httpsOptions
+        });
+      }
     },
 
     reloadStaticServer: function() {
