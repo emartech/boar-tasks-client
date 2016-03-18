@@ -153,39 +153,29 @@ module.exports = function (gulp, config) {
     },
 
     staticServer: function() {
+      var connect = require('gulp-connect');
       var httpPort = parseInt(config.staticServer.port);
       var root = config.build.distPath;
 
-      this._startHTTPServer(httpPort, root);
+      connect.server({ port: httpPort, root: root });
 
       if (process.env.SERVE_HTTPS === 'true') {
         var httpsPort = httpPort + 10000;
-        this._startHTTPSServer(httpsPort, root);
-      }
-    },
-
-    _startHTTPServer: function(port, root) {
-      var connect = require('gulp-connect');
-      connect.server({ port: port, root: root });
-    },
-
-    _startHTTPSServer: function(port, root) {
-      var fs = require('fs');
-      var connect = require('gulp-connect');
-
-      var httpsOptions = true;
-      if (process.env.HTTPS_KEY && process.env.HTTPS_CERT) {
-        httpsOptions = {
-          key: fs.readFileSync(process.env.HTTPS_KEY),
-          cert: fs.readFileSync(process.env.HTTPS_CERT)
+        var fs = require('fs');
+        var httpsOptions = true;
+        if (process.env.HTTPS_KEY && process.env.HTTPS_CERT) {
+          httpsOptions = {
+            key: fs.readFileSync(process.env.HTTPS_KEY),
+            cert: fs.readFileSync(process.env.HTTPS_CERT)
+          }
         }
-      }
 
-      connect.server({
-        port: port,
-        root: root,
-        https: httpsOptions
-      });
+        connect.server({
+          port: httpsPort,
+          root: root,
+          https: httpsOptions
+        });
+      }
     },
 
     reloadStaticServer: function() {
