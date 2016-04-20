@@ -400,6 +400,17 @@ gulp.task('client-template-code-style', tasks.client.templateCodeStyle);
 
 
 
+#### Security checks
+Check package.json's dependencies section against known vulnerable libraries. This will only generate warnings on the console.
+
+*Usage*
+
+```javascript
+gulp.task('nsp', function(cb) { tasks.client.nsp(__dirname + '/package.json', cb) });
+```
+
+
+
 #### Dummy server to provide assets
 It is for development purposes - serving static asset files.
 
