@@ -19,6 +19,7 @@ module.exports.getTasks = function(gulp, customConfig) {
     config: finalConfig,
     client: require('./tasks/client')(gulp, finalConfig),
     build: boarTasksCommon.build(gulp, finalConfig),
+    nsp: boarTasksCommon.lint(gulp).nsp,
     package: require('./tasks/package')(gulp, finalConfig),
     s3: require('./tasks/s3')(gulp, finalConfig),
     redirector: require('./tasks/redirector')(gulp, finalConfig)
