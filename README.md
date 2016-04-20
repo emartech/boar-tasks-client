@@ -406,7 +406,7 @@ Check package.json's dependencies section against known vulnerable libraries. Th
 *Usage*
 
 ```javascript
-gulp.task('nsp', function(cb) { tasks.server.nsp(__dirname + '/package.json', cb) });
+gulp.task('nsp', function(cb) { tasks.client.nsp(__dirname + '/package.json', cb) });
 ```
 
 
