@@ -130,6 +130,15 @@ module.exports = function (gulp, config) {
     },
 
     test: function (done) {
+      return tasks._test(done, false);
+    },
+
+    coverage: function (done) {
+      return tasks._test(done, true);
+    },
+
+    _test: function (done, withCoverage) {
+      config.client.app.testWithCoverage = withCoverage;
       var KarmaServer = require('karma').Server;
 
       var server = new KarmaServer({
