@@ -135,7 +135,13 @@ module.exports = function (gulp, config) {
       var server = new KarmaServer({
         configFile: config.client.testConfigPath,
         singleRun: true
-      }, done);
+      }, function(exitCode) {
+        if (exitCode > 1) {
+          return done(new Error(`Karma exited with status code ${exitCode}`));
+        }
+
+        done();
+      });
       server.start();
     },
 
