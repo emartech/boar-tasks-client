@@ -24,7 +24,7 @@
     "validate-commit-msg"
   ],
   "dependencies": {
-    "boar-tasks-common": "4.1.0",
+    "boar-tasks-common": "5.0.0",
     "chai": "3.5.0",
     "co-mocha": "1.1.2",
     "concurrent-transform": "1.0.0",
