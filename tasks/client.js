@@ -136,7 +136,7 @@ module.exports = function (gulp, config) {
         configFile: config.client.testConfigPath,
         singleRun: true
       }, function(exitCode) {
-        if (exitCode > 1) {
+        if (exitCode > 0) {
           return done(new Error(`Karma exited with status code ${exitCode}`));
         }
 
